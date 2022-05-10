@@ -1,0 +1,20 @@
+﻿using AM.Application.Contract.Account;
+using SM.Domain.Services;
+
+namespace SM.Infrastructure.AccountAcl
+{
+    public class ShopAccountAcl : IShopAccountAcl
+    {
+        private readonly IAccountApplication _accountApplication;
+        public ShopAccountAcl(IAccountApplication accountApplication)
+        {
+            _accountApplication = accountApplication;
+        }
+
+        public (string name, string mobile) GetAccountBy(long id)
+        {
+            var account = _accountApplication.GetAccountBy(id);
+            return (account.Fullname, account.MobileNum);
+        }
+    }
+}

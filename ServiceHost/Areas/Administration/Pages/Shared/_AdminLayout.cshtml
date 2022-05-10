@@ -1,0 +1,302 @@
+﻿@using AM.Infrastructure.Configure
+@using BM.Infrastructure.Configure
+@using CM.Infrastructure.Configure
+@using DM.Infrastructure.Configure
+@using Framework.Application
+@using Framework.Infrastructure
+@using IM.Infrastructure.Configure
+@using SM.Infrastructure.Configure
+@inject IAuthHelper _authHelper
+@{
+    var authViewModel = _authHelper.AccountInfo();
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+        <meta name="author" content="Coderthemes">
+
+        <link rel="shortcut icon" href="~/AdminTheme/images/favicon_1.ico">
+
+        <title>@ViewData["Title"] | LampShade Shop</title>
+
+        <!-- Base Css Files -->
+        <link href="~/AdminTheme/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Font Icons -->
+        <link href="~/AdminTheme/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/AdminTheme/assets/ionicon/css/ionicons.min.css" rel="stylesheet" />
+        <link href="~/AdminTheme/assets/css/material-design-iconic-font.min.css" rel="stylesheet">
+
+        <!-- animate css -->
+        <link href="~/AdminTheme/assets/css/animate.css" rel="stylesheet" />
+        <!-- Waves-effect -->
+        <link href="~/AdminTheme/assets/css/waves-effect.css" rel="stylesheet">
+        <!-- Data tables-->
+        <link href="~/AdminTheme/assets/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+        <!-- sweet alerts -->
+        <link href="~/AdminTheme/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+
+        @await RenderSectionAsync("Css",false)
+
+        <!-- Custom Files -->
+        <link href="~/AdminTheme/assets/css/helper.css" rel="stylesheet" type="text/css" />
+        <link href="~/AdminTheme/assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet" type="text/css"/>
+
+        <script src="~/AdminTheme/assets/js/modernizr.min.js"></script>
+    </head>
+
+    <body class="fixed-left">
+        
+        <div id="wrapper">
+        
+            <!-- Top Bar Start -->
+            <div class="topbar">
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <div class="text-center">
+                        <a href="index.html" class="logo"><i class="md md-terrain"></i> <span>Moltran </span></a>
+                    </div>
+                </div>
+                <!-- Button mobile view to collapse sidebar menu -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="container">
+                        <div class="">
+                            <div class="pull-left">
+                                <button class="button-menu-mobile open-left">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <span class="clearfix"></span>
+                            </div>
+                            <form class="navbar-form pull-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control search-bar" style="direction: ltr;" placeholder="Type here for search...">
+                                </div>
+                                <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
+                            </form>
+
+                            <ul class="nav navbar-nav navbar-right pull-right">
+                                <li class="hidden-xs">
+                                    <a href="#" id="btn-fullscreen" class="waves-effect waves-light"><i class="md md-crop-free"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+            <!-- Top Bar End -->
+
+
+            <!--  Left Sidebar Start  -->
+            <div class="left side-menu">
+                <div class="sidebar-inner slimscrollleft">
+                    <div class="user-details">
+                        <div class="pull-right">
+                            <img src="~/ProductPictures/@authViewModel.ProfileImg" alt="" class="thumb-md img-circle">
+                        </div>
+                        <div class="user-info">
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">@authViewModel.Fullname<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)"><i class="md md-face-unlock"></i> Profile<div class="ripple-wrapper"></div></a></li>
+                                    <li><a href="javascript:void(0)"><i class="md md-settings"></i> Settings</a></li>
+                                    <li><a href="javascript:void(0)"><i class="md md-lock"></i> Lock screen</a></li>
+                                    <li><a href="javascript:void(0)"><i class="md md-settings-power"></i> Logout</a></li>
+                                </ul>
+                            </div>
+                            
+                            <p class="text-muted m-0">@authViewModel.Role</p>
+                        </div>
+                    </div>
+                    <!--- Divider -->
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li>
+                                <a asp-page="/Index" class="waves-effect active"><i class="md md-home"></i><span> داشبورد </span></a>
+                            </li>
+                            @if (_authHelper.AccountRole() == Roles.Administrator)
+                            {
+                                <li>
+                                    <a permission="@InventoryPermission.InventoryList" asp-page="/Inventory/Index" class="waves-effect"><i class="md md-storage"></i><span> انبار </span></a>
+                                </li>
+                            }
+                            <li>
+                                <a asp-page="/Shop/Order/Index" class="waves-effect"><i class="md md-payment"></i><span> سفارش‌ها </span></a>
+                            </li>
+                            @if (_authHelper.AccountRole() == Roles.Administrator)
+                            {    
+                                <li class="has_sub">
+                                      <a class="waves-effect"><i class="md md-person"></i><span> مدیریت کاربران </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                      <ul class="list-unstyled">
+                                          <li><a asp-page="/Accounts/Account/Index">کاربران</a></li>
+                                          <li><a asp-page="/Accounts/Role/Index">نقش‌ها</a></li>
+                                      </ul>
+                                  </li>  
+                            }
+                            @if (_authHelper.AccountRole() == Roles.Administrator)
+                            {
+                                <li class="has_sub"}>
+                                    <a class="waves-effect"><i class="md md-shopping-cart"></i><span> فروشگاه </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a permission="@ShopPermission.SlideList" asp-page="/Shop/Comments/Index">اسلایدر</a></li>
+                                        <li><a permission="@ShopPermission.CategoryList" asp-page="/Shop/Category/Index">گروه محصولات</a></li>
+                                        <li><a permission="@ShopPermission.ProductList" asp-page="/Shop/Product/Index">محصولات</a></li>
+                                        <li><a permission="@ShopPermission.ImageList" asp-page="/Shop/Images/Index">عکس محصولات</a></li>
+                                    </ul>
+                                </li> 
+                            }
+                            <li>
+                                <a permission="@CommentPermission.CommentList" asp-page="/Comment/Index" class="waves-effect"><i class="md md-comment"></i><span> کامنت‌ها </span></a>
+                            </li>
+                            @if (_authHelper.AccountRole() == Roles.Administrator)
+                            {
+                                <li class="has_sub">
+                                    <a class="waves-effect"><i class="md md-warning"></i><span> سیستم تخفیفات </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                    <ul class="list-unstyled">
+                                        <li><a permission="@DiscountPermission.CustomerList" asp-page="/Discount/Customer/Index">تخفیف مشتریان</a></li>
+                                        <li><a permission="@DiscountPermission.ColleagueList" asp-page="/Discount/Colleague/Index">تخفیف همکاران</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            <li class="has_sub">
+                                <a class="waves-effect"><i class="md md-book"></i><span> سیستم مقالات </span><span class="pull-right"><i class="md md-add"></i></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a permission="@BlogPermission.CategoryList" asp-page="/Blog/Category/Index">گروه مقالات</a></li>
+                                    <li><a permission="@BlogPermission.ArticleList" asp-page="/Blog/Article/Index">مقالات</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a asp-page="/Account" asp-page-handler="Logout" class="waves-effect"><i class="md md-exit-to-app"></i><span> ‌خروج </span></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Left Sidebar End --> 
+
+
+
+            <!-- Start right Content here -->
+            <div class="content-page">
+                <!-- Start content -->
+                <div class="content">
+                    <div class="container">
+                        
+                        @RenderBody()
+
+                    </div> <!-- container -->
+                               
+                </div> <!-- content -->
+
+                <footer class="footer text-right">
+                    2022 © LampShade.
+                </footer>
+            </div>
+
+        </div>
+
+
+        
+    
+    
+        <!-- Modal base-->
+        <div id="MainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div id="ModalContent" class="modal-content">
+                    
+
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/AdminTheme/assets/js/bootstrap.min.js"></script>
+    <script src="~/AdminTheme/assets/js/waves.js"></script>
+    <script src="~/AdminTheme/assets/js/wow.min.js"></script>
+    <script src="~/AdminTheme/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="~/AdminTheme/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="~/AdminTheme/assets/chat/moment-2.2.1.js"></script>
+    <script src="~/AdminTheme/assets/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/AdminTheme/assets/jquery-detectmobile/detect.js"></script>
+    <script src="~/AdminTheme/assets/fastclick/fastclick.js"></script>
+    <script src="~/AdminTheme/assets/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/AdminTheme/assets/jquery-blockui/jquery.blockUI.js"></script>
+
+    <!-- sweet alerts -->
+    <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.min.js"></script>
+    <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.init.js"></script>
+
+    <!-- flot Chart -->
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.time.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.tooltip.min.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.resize.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.pie.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.selection.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.stack.js"></script>
+    <script src="~/AdminTheme/assets/flot-chart/jquery.flot.crosshair.js"></script>
+
+    <!-- Counter-up -->
+    <script src="~/AdminTheme/assets/counterup/waypoints.min.js" type="text/javascript"></script>
+    <script src="~/AdminTheme/assets/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+
+
+    <!-- CUSTOM JS -->
+    <script src="~/AdminTheme/assets/js/jquery.app.js"></script>
+
+    <!-- Dashboard -->
+    <script src="~/AdminTheme/assets/js/jquery.dashboard.js"></script>
+
+    <!-- Chat -->
+    <script src="~/AdminTheme/assets/js/jquery.chat.js"></script>
+
+    <!-- Todo -->
+    <script src="~/AdminTheme/assets/js/jquery.todo.js"></script>
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="~/AdminTheme/assets/js/site.js"></script>
+
+    <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
+    <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @await RenderSectionAsync("Scripts", false)
+
+    <script>
+        $('.persianCalenderInput').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: "persian"
+        });
+    </script>
+    
+    
+    <script src="https://cdn.tiny.cloud/1/9lf7ccihhuekez3w23jfv5mahl8lj49q0120nu8bmn0ip5o8/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#tinyEditor',
+            plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+            toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+            toolbar_mode: 'floating',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+        });
+    </script>
+    
+    </body>
+</html>

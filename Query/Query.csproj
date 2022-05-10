@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BM.Infrastructure.EFCore\BM.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\CM.Infrastructure.EFCore\CM.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\DM.Infrastructure.EFCore\DM.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\IM.Infrastructure.EFCore\IM.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\SM.Infrastructure.EFCore\SM.Infrastructure.EFCore.csproj" />
+  </ItemGroup>
+
+</Project>

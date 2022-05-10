@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.15" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DM.Application.Contracts\DM.Application.Contracts.csproj" />
+    <ProjectReference Include="..\DM.Application\DM.Application.csproj" />
+    <ProjectReference Include="..\DM.Infrastructure.EFCore\DM.Infrastructure.EFCore.csproj" />
+  </ItemGroup>
+
+</Project>

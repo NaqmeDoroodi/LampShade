@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>فروشگاه Lampshade</title>
+
+    <link href="~/Theme/assets/css/vendors.css" rel="stylesheet">
+    <link href="~/Theme/assets/css/style.css" rel="stylesheet">
+    <link href="~/Theme/assets/css/Custom.css" rel="stylesheet">
+</head>
+
+<body>
+
+@await Component.InvokeAsync("Menu")
+
+@RenderBody()
+
+@await Component.InvokeAsync("Footer")
+
+
+<div id="scroll-top">
+    <span>بالا</span><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
+</div>
+
+<script src="~/Theme/assets/js/vendors.js"></script>
+<script src="~/Theme/assets/js/active.js"></script>
+<script src="~/Theme/assets/js/plugins.js"></script>
+<script src="~/Theme/assets/js/cart.js"></script>
+<script>
+    $(document).ready(function() {
+        updateCart();
+    });
+</script>
+
+</body>
+</html>

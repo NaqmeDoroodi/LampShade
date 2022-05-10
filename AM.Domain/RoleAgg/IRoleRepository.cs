@@ -1,0 +1,1 @@
+﻿using System.Collections.Generic;using AM.Application.Contract.Role.Models;using Framework.Domain;namespace AM.Domain.RoleAgg{    public interface IRoleRepository : IRepository<int, Role>    {        EditRole GetRoleDetails(long id);        List<RoleViewModel> GetAllRoles();    }}
